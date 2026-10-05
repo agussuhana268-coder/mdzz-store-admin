@@ -1,5 +1,5 @@
 import {
-  CheckCircle,
+  CheckCircle2,
   XCircle,
   Eye,
   Phone,
@@ -16,6 +16,7 @@ import {
 
 /**
  * Desktop table row for orders
+ * SaaS-styled with deep navy theme and compact status pills.
  */
 export function OrderTableRow({
   order,
@@ -42,7 +43,7 @@ export function OrderTableRow({
 
   const statusMeta = STATUS_CONFIG[status] || {
     label: status,
-    badgeClass: 'bg-slate-500/15 text-slate-300 border border-slate-500/30',
+    badgeClass: 'bg-navy-800 text-slate-300 border border-navy-700',
     dotClass: 'bg-slate-400',
   };
 
@@ -51,107 +52,115 @@ export function OrderTableRow({
 
   return (
     <tr
-      className={`border-b border-slate-800/80 transition-colors hover:bg-slate-800/40 ${
-        isWaiting ? 'bg-amber-500/[0.02]' : ''
+      className={`border-b border-navy-700/60 transition-colors hover:bg-navy-850/60 group ${
+        isWaiting ? 'bg-amber-500/[0.03]' : ''
       }`}
     >
-      {/* Order ID */}
-      <td className="py-4 px-4 whitespace-nowrap">
+      {/* 1. Order ID */}
+      <td className="py-3.5 px-4 whitespace-nowrap">
         <button
           type="button"
           onClick={() => onSelect(order)}
-          className="font-mono text-xs font-semibold text-indigo-400 hover:text-indigo-300 hover:underline focus:outline-none focus:ring-1 focus:ring-indigo-500 rounded"
+          title="Klik untuk detail pesanan"
+          className="font-mono text-xs font-semibold text-blue-400 hover:text-blue-300 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded py-0.5 px-1 bg-navy-800/60 border border-navy-700/80 inline-flex items-center gap-1 transition-colors"
         >
-          #{orderId}
+          <span>#{orderId}</span>
         </button>
       </td>
 
-      {/* Product */}
-      <td className="py-4 px-4">
-        <div className="max-w-[200px]">
-          <div className="text-sm font-medium text-slate-200 truncate" title={productInfo.name}>
-            {productInfo.name}
-          </div>
-          {productInfo.license !== '-' && (
-            <span className="inline-block mt-0.5 text-[11px] text-slate-400 bg-slate-800 px-1.5 py-0.2 rounded border border-slate-700/60">
-              {productInfo.license}
-            </span>
-          )}
-        </div>
-      </td>
-
-      {/* Customer */}
-      <td className="py-4 px-4 whitespace-nowrap">
-        <div className="text-sm font-medium text-slate-200">
+      {/* 2. Pelanggan */}
+      <td className="py-3.5 px-4 whitespace-nowrap">
+        <div className="text-sm font-medium text-slate-100">
           {customerName}
         </div>
         {customerPhone && (
           <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-0.5">
-            <span>{customerPhone}</span>
+            <span className="font-mono text-[11px] text-slate-400">{customerPhone}</span>
             {waUrl && (
               <a
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Chat WhatsApp"
-                className="text-emerald-400 hover:text-emerald-300"
+                className="text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center"
               >
-                <Phone className="w-3 h-3 inline" />
+                <Phone className="w-3 h-3" />
               </a>
             )}
           </div>
         )}
       </td>
 
-      {/* Total */}
-      <td className="py-4 px-4 whitespace-nowrap text-sm font-semibold text-slate-200">
-        {formatCurrency(totalAmount)}
+      {/* 3. Produk */}
+      <td className="py-3.5 px-4">
+        <div className="max-w-[220px]">
+          <div className="text-sm font-medium text-slate-200 truncate" title={productInfo.name}>
+            {productInfo.name}
+          </div>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            {productInfo.license !== '-' && (
+              <span className="inline-block text-[10px] font-medium text-slate-400 bg-navy-800 px-1.5 py-0.5 rounded border border-navy-700">
+                {productInfo.license}
+              </span>
+            )}
+            {productInfo.compatibility !== '-' && (
+              <span className="inline-block text-[10px] font-medium text-slate-400 bg-navy-800 px-1.5 py-0.5 rounded border border-navy-700">
+                {productInfo.compatibility}
+              </span>
+            )}
+          </div>
+        </div>
       </td>
 
-      {/* Payment */}
-      <td className="py-4 px-4 whitespace-nowrap">
-        <span className="text-xs text-slate-400 bg-slate-800/80 px-2 py-1 rounded-lg border border-slate-700/60">
+      {/* 4. Total */}
+      <td className="py-3.5 px-4 whitespace-nowrap">
+        <div className="text-sm font-semibold font-mono text-slate-100">
+          {formatCurrency(totalAmount)}
+        </div>
+        <div className="text-[11px] text-slate-400">
           {paymentMethod}
-        </span>
+        </div>
       </td>
 
-      {/* Status */}
-      <td className="py-4 px-4 whitespace-nowrap">
+      {/* 5. Status */}
+      <td className="py-3.5 px-4 whitespace-nowrap">
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs ${statusMeta.badgeClass}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium ${statusMeta.badgeClass}`}
         >
-          <span className={`w-1.5 h-1.5 rounded-full ${statusMeta.dotClass}`} />
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusMeta.dotClass}`} />
           {statusMeta.label}
         </span>
       </td>
 
-      {/* Date */}
-      <td className="py-4 px-4 whitespace-nowrap text-xs text-slate-400">
+      {/* 6. Waktu */}
+      <td className="py-3.5 px-4 whitespace-nowrap text-xs text-slate-400 font-mono">
         {formatDateShort(createdAt)}
       </td>
 
-      {/* Actions */}
-      <td className="py-4 px-4 whitespace-nowrap text-right">
+      {/* 7. Action */}
+      <td className="py-3.5 px-4 whitespace-nowrap text-right">
         <div className="flex items-center justify-end gap-1.5">
           {isWaiting ? (
             <>
+              {/* Primary Blue action for Complete */}
               <button
                 type="button"
                 onClick={() => onOpenCompleteConfirm(order)}
                 disabled={isActionLoading}
                 title="Selesaikan Pesanan"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm shadow-blue-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
               >
-                <CheckCircle className="w-3.5 h-3.5" />
+                <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Selesaikan</span>
               </button>
 
+              {/* Danger/Red action for Cancel */}
               <button
                 type="button"
                 onClick={() => onOpenCancelConfirm(order)}
                 disabled={isActionLoading}
                 title="Batalkan Pesanan"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50"
               >
                 <XCircle className="w-3.5 h-3.5" />
                 <span>Batal</span>
@@ -161,10 +170,10 @@ export function OrderTableRow({
             <button
               type="button"
               onClick={() => onSelect(order)}
-              title="Lihat Detail"
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700/80 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
+              title="Lihat Detail Pesanan"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 hover:border-navy-600 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <Eye className="w-3.5 h-3.5" />
+              <Eye className="w-3.5 h-3.5 text-slate-400" />
               <span>Detail</span>
             </button>
           )}
@@ -202,7 +211,7 @@ export function OrderMobileCard({
 
   const statusMeta = STATUS_CONFIG[status] || {
     label: status,
-    badgeClass: 'bg-slate-500/15 text-slate-300 border border-slate-500/30',
+    badgeClass: 'bg-navy-800 text-slate-300 border border-navy-700',
     dotClass: 'bg-slate-400',
   };
 
@@ -213,76 +222,82 @@ export function OrderMobileCard({
     <div
       className={`p-4 rounded-2xl border transition-all duration-200 ${
         isWaiting
-          ? 'bg-slate-900/90 border-amber-500/40 shadow-md shadow-amber-500/5'
-          : 'bg-slate-900/70 border-slate-800'
+          ? 'bg-navy-900 border-amber-500/40 shadow-sm shadow-amber-500/5'
+          : 'bg-navy-900/90 border-navy-700/80 hover:border-navy-600'
       }`}
     >
       {/* Top: Order ID + Status */}
-      <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+      <div className="flex items-center justify-between gap-2 pb-3 border-b border-navy-700/70">
         <button
           type="button"
           onClick={() => onSelect(order)}
-          className="font-mono text-sm font-semibold text-indigo-400 hover:text-indigo-300"
+          className="font-mono text-xs font-semibold text-blue-400 hover:text-blue-300 px-2 py-0.5 rounded bg-navy-800 border border-navy-700 inline-flex items-center gap-1"
         >
-          #{orderId}
+          <span>#{orderId}</span>
         </button>
 
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs ${statusMeta.badgeClass}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium ${statusMeta.badgeClass}`}
         >
           <span className={`w-1.5 h-1.5 rounded-full ${statusMeta.dotClass}`} />
           {statusMeta.label}
         </span>
       </div>
 
-      {/* Body */}
-      <div className="py-3 space-y-2">
+      {/* Body: Product, Customer, Total */}
+      <div className="py-3 space-y-2.5">
         <div className="flex items-start justify-between gap-2">
-          <div>
-            <h4 className="text-sm font-semibold text-slate-100">
+          <div className="flex-1 pr-2">
+            <h4 className="text-sm font-semibold text-slate-100 leading-snug">
               {productInfo.name}
             </h4>
-            <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-0.5">
-              <span>{customerName}</span>
-              {customerPhone && <span>• {customerPhone}</span>}
+            <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-1">
+              <span className="font-medium text-slate-300">{customerName}</span>
+              {customerPhone && (
+                <>
+                  <span>•</span>
+                  <span className="font-mono text-[11px]">{customerPhone}</span>
+                </>
+              )}
               {waUrl && (
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Chat WhatsApp"
-                  className="text-emerald-400 hover:text-emerald-300 ml-1 inline-flex items-center"
+                  className="text-emerald-400 hover:text-emerald-300 inline-flex items-center ml-0.5"
                 >
                   <Phone className="w-3 h-3" />
                 </a>
               )}
             </div>
           </div>
+
           <div className="text-right shrink-0">
-            <span className="text-sm font-bold text-slate-200">
+            <span className="text-sm font-bold font-mono text-slate-100">
               {formatCurrency(totalAmount)}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+        <div className="flex items-center justify-between text-xs text-slate-400 pt-1 border-t border-navy-800/80">
           <span className="flex items-center gap-1">
             <CreditCard className="w-3.5 h-3.5 text-slate-500" />
             {paymentMethod}
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 font-mono text-[11px]">
             <Calendar className="w-3.5 h-3.5 text-slate-500" />
             {formatDateShort(createdAt)}
           </span>
         </div>
       </div>
 
-      {/* Footer Actions */}
-      <div className="pt-3 border-t border-slate-800/80 flex items-center justify-end gap-2">
+      {/* Footer: Actions */}
+      <div className="pt-3 border-t border-navy-700/70 flex items-center justify-end gap-2">
         <button
           type="button"
           onClick={() => onSelect(order)}
-          className="px-3 py-1.5 text-xs font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl"
+          className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 rounded-xl transition-colors"
         >
           Detail
         </button>
@@ -293,7 +308,7 @@ export function OrderMobileCard({
               type="button"
               onClick={() => onOpenCancelConfirm(order)}
               disabled={isActionLoading}
-              className="px-3 py-1.5 text-xs font-medium text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl disabled:opacity-50"
+              className="px-3 py-1.5 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl transition-colors disabled:opacity-50"
             >
               Batalkan
             </button>
@@ -302,10 +317,10 @@ export function OrderMobileCard({
               type="button"
               onClick={() => onOpenCompleteConfirm(order)}
               disabled={isActionLoading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-sm disabled:opacity-50"
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-sm shadow-blue-600/30 transition-colors disabled:opacity-50"
             >
-              <CheckCircle className="w-3.5 h-3.5" />
-              Selesaikan
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>Selesaikan</span>
             </button>
           </>
         )}

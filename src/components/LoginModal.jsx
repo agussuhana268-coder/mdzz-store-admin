@@ -1,49 +1,65 @@
 import { useState } from 'react';
-import { Shield, Lock, Loader2, AlertCircle } from 'lucide-react';
+import { Lock, Loader2, AlertCircle, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 
 /**
- * Professional login screen for MDZZ Store Admin Dashboard
+ * Premium login screen for MDZZ Store Admin Dashboard
+ * Deep navy theme with subtle ambient glow and show/hide password toggle.
  */
 export function LoginModal({ onLogin, isLoggingIn, loginError, sessionExpiredMessage }) {
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!password.trim() || isLoggingIn) return;
-    
+
     const pwd = password;
-    setPassword(''); // Clear password input immediately for security
+    setPassword(''); // Clear password immediately from component state
     await onLogin(pwd);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-950 text-slate-100">
-      <div className="w-full max-w-md">
-        {/* Brand header */}
+    <div className="min-h-screen flex items-center justify-center p-4 bg-navy-950 text-slate-100 relative overflow-hidden">
+      {/* Subtle ambient background glow */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-sky-500/5 rounded-full blur-2xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="w-full max-w-md relative z-10">
+        {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-4 shadow-lg shadow-indigo-500/5">
-            <Shield className="w-8 h-8" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/30 text-blue-400 mb-4 shadow-lg shadow-blue-500/10">
+            <ShieldCheck className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
+
+          <h1 className="text-2xl font-bold tracking-tight text-white uppercase">
             MDZZ Store
           </h1>
-          <p className="text-sm font-medium text-indigo-400 tracking-wide mt-1 uppercase">
+
+          <p className="text-xs font-semibold text-blue-400 tracking-widest mt-1 uppercase">
             Admin Dashboard
           </p>
-          <p className="text-sm text-slate-400 mt-2">
-            Login untuk mengelola pesanan toko.
+
+          <p className="text-xs text-slate-400 mt-2">
+            Masuk untuk mengelola pesanan.
+            <span className="sr-only">Login untuk mengelola pesanan toko.</span>
           </p>
         </div>
 
-        {/* Card */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-950/50 backdrop-blur-md">
-          {/* Session Expired Notice if applicable */}
+        {/* Login Card */}
+        <div className="bg-navy-900 border border-navy-700 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-navy-950/80">
+          {/* Session Expired Notice */}
           {sessionExpiredMessage && (
             <div
               role="alert"
-              className="mb-5 flex items-start gap-3 p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-300 text-sm"
+              className="mb-5 flex items-start gap-3 p-3.5 bg-amber-500/10 border border-amber-500/25 rounded-xl text-amber-300 text-xs"
             >
-              <AlertCircle className="w-5 h-5 shrink-0 text-amber-400 mt-0.5" />
+              <AlertCircle className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
               <span>{sessionExpiredMessage}</span>
             </div>
           )}
@@ -52,9 +68,9 @@ export function LoginModal({ onLogin, isLoggingIn, loginError, sessionExpiredMes
           {loginError && (
             <div
               role="alert"
-              className="mb-5 flex items-start gap-3 p-3.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-300 text-sm"
+              className="mb-5 flex items-start gap-3 p-3.5 bg-rose-500/10 border border-rose-500/25 rounded-xl text-rose-300 text-xs"
             >
-              <AlertCircle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400 mt-0.5" />
               <span>{loginError}</span>
             </div>
           )}
@@ -63,32 +79,48 @@ export function LoginModal({ onLogin, isLoggingIn, loginError, sessionExpiredMes
             <div>
               <label
                 htmlFor="admin-password"
-                className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2"
+                className="block text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-2"
               >
                 Password Admin
               </label>
+
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Lock className="w-4 h-4" />
                 </div>
+
                 <input
                   id="admin-password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukkan password admin"
                   autoFocus
                   required
                   disabled={isLoggingIn}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:opacity-50 transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 bg-navy-950/80 border border-navy-700 hover:border-navy-600 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 transition-colors font-mono"
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Sembunyikan password' : 'Lihat password'}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors focus:outline-none"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={isLoggingIn || !password.trim()}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm rounded-xl shadow-lg shadow-indigo-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Masuk Dashboard"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/25 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-navy-900 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoggingIn ? (
                 <>
@@ -96,13 +128,13 @@ export function LoginModal({ onLogin, isLoggingIn, loginError, sessionExpiredMes
                   <span>Memverifikasi...</span>
                 </>
               ) : (
-                <span>Masuk Dashboard</span>
+                <span>Masuk ke Dashboard</span>
               )}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate-500 mt-6">
+        <p className="text-center text-[11px] text-slate-500 mt-6">
           Sesi admin bersifat sementara di memori dan tidak disimpan di browser.
         </p>
       </div>
