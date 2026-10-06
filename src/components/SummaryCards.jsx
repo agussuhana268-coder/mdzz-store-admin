@@ -1,144 +1,99 @@
-import { Clock, CheckCircle2, XCircle, ShoppingBag, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { ORDER_STATUS } from '../utils/constants';
 
 /**
- * SummaryCards component
- * Displays high-level order counts with WAITING_VERIFICATION having highest visual prominence.
+ * Strip statistik: satu panel dengan sel berpembatas hairline
+ * (2x2 di mobile, 4 kolom di desktop). Tiap sel adalah filter.
  */
 export function SummaryCards({
   summary = { waiting: 0, success: 0, cancelled: 0, total: 0 },
   activeFilter = 'ALL',
   onSelectFilter,
 }) {
-  const cards = [
+  const cells = [
     {
-      id: ORDER_STATUS.WAITING_VERIFICATION,
       label: 'Menunggu Verifikasi',
-      secondaryCode: 'WAITING_VERIFICATION',
+      code: 'WAITING_VERIFICATION',
       count: summary.waiting,
-      icon: Clock,
-      badgeText: summary.waiting > 0 ? `${summary.waiting} Perlu Tindakan` : 'Antrean Bersih',
-      isPrimaryAction: true,
-      containerClass:
-        'bg-navy-900 border-amber-500/40 shadow-md shadow-amber-500/5 ring-1 ring-amber-500/20 hover:border-amber-400/60',
-      iconBoxClass: 'bg-amber-500/15 text-amber-400 border border-amber-500/30',
+      note: summary.waiting > 0 ? `${summary.waiting} perlu tindakan` : 'Antrean bersih',
       countClass: 'text-amber-300',
-      badgeClass:
-        summary.waiting > 0
-          ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-          : 'bg-navy-800 text-slate-400 border border-navy-700',
+      barClass: 'bg-amber-400',
       filterValue: ORDER_STATUS.WAITING_VERIFICATION,
+      pulse: summary.waiting > 0,
     },
     {
-      id: ORDER_STATUS.SUCCESS,
       label: 'Berhasil',
-      secondaryCode: 'SUCCESS',
+      code: 'SUCCESS',
       count: summary.success,
-      icon: CheckCircle2,
-      badgeText: 'Selesai',
-      isPrimaryAction: false,
-      containerClass: 'bg-navy-900 border-navy-700 hover:border-emerald-500/40',
-      iconBoxClass: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+      note: 'Selesai',
       countClass: 'text-emerald-400',
-      badgeClass: 'bg-navy-800 text-slate-400 border border-navy-700',
+      barClass: 'bg-emerald-400',
       filterValue: ORDER_STATUS.SUCCESS,
     },
     {
-      id: ORDER_STATUS.CANCELLED,
       label: 'Dibatalkan',
-      secondaryCode: 'CANCELLED',
+      code: 'CANCELLED',
       count: summary.cancelled,
-      icon: XCircle,
-      badgeText: 'Dibatalkan',
-      isPrimaryAction: false,
-      containerClass: 'bg-navy-900 border-navy-700 hover:border-rose-500/40',
-      iconBoxClass: 'bg-rose-500/15 text-rose-400 border border-rose-500/30',
+      note: 'Dibatalkan',
       countClass: 'text-rose-400',
-      badgeClass: 'bg-navy-800 text-slate-400 border border-navy-700',
+      barClass: 'bg-rose-400',
       filterValue: ORDER_STATUS.CANCELLED,
     },
     {
-      id: 'ALL',
       label: 'Total Pesanan',
-      secondaryCode: 'TOTAL',
+      code: 'TOTAL',
       count: summary.total,
-      icon: ShoppingBag,
-      badgeText: 'Semua Status',
-      isPrimaryAction: false,
-      containerClass: 'bg-navy-900 border-navy-700 hover:border-blue-500/40',
-      iconBoxClass: 'bg-blue-500/15 text-blue-400 border border-blue-500/30',
-      countClass: 'text-blue-400',
-      badgeClass: 'bg-navy-800 text-slate-400 border border-navy-700',
+      note: 'Semua status',
+      countClass: 'text-white',
+      barClass: 'bg-accent-500',
       filterValue: 'ALL',
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        const isSelected = activeFilter === card.filterValue;
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-ink-700 border border-ink-700 rounded-xl overflow-hidden">
+      {cells.map((c) => {
+        const isSelected = activeFilter === c.filterValue;
 
         return (
           <button
-            key={card.id}
+            key={c.code}
             type="button"
-            onClick={() => onSelectFilter && onSelectFilter(card.filterValue)}
-            className={`w-full text-left p-5 rounded-2xl border transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 hover:-translate-y-0.5 relative group ${
-              card.containerClass
-            } ${
-              isSelected
-                ? 'ring-2 ring-blue-500/80 border-blue-500/60 shadow-lg shadow-blue-500/5'
-                : ''
+            onClick={() => onSelectFilter && onSelectFilter(c.filterValue)}
+            className={`relative group text-left p-4 sm:p-5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent-500 ${
+              isSelected ? 'bg-ink-850' : 'bg-ink-900 hover:bg-ink-850'
             }`}
           >
-            {/* Top row: Label & Icon */}
+            <span
+              className={`absolute inset-x-0 top-0 h-[3px] ${c.barClass} ${
+                isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+              } transition-opacity`}
+            />
+
             <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="text-xs font-semibold text-slate-200">
-                  {card.label}
-                </p>
-                <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mt-0.5">
-                  {card.secondaryCode}
-                </p>
-              </div>
-
-              <div
-                className={`p-2.5 rounded-xl shrink-0 transition-transform group-hover:scale-105 ${card.iconBoxClass}`}
-              >
-                <Icon className="w-4 h-4" />
-              </div>
+              <p className="text-xs font-semibold text-slate-300 leading-snug">{c.label}</p>
+              <ArrowUpRight className="w-3.5 h-3.5 shrink-0 text-slate-600 group-hover:text-slate-300 transition-colors" />
             </div>
 
-            {/* Middle row: Big number */}
-            <div className="mt-4 flex items-baseline justify-between">
-              <div className="flex items-center gap-2">
-                {card.isPrimaryAction && summary.waiting > 0 && (
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-                  </span>
-                )}
-                <span
-                  className={`text-2xl sm:text-3xl font-bold tracking-tight font-mono ${card.countClass}`}
-                >
-                  {card.count}
+            <div className="mt-3 sm:mt-4 flex items-center gap-2">
+              {c.pulse && (
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-70"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                 </span>
-              </div>
-
+              )}
               <span
-                className={`text-[11px] font-medium px-2 py-0.5 rounded-md ${card.badgeClass}`}
+                className={`text-3xl sm:text-4xl font-bold font-mono tabular-nums leading-none ${c.countClass}`}
               >
-                {card.badgeText}
+                {c.count}
               </span>
             </div>
 
-            {/* Subtle filter hint */}
-            <div className="mt-3 pt-2.5 border-t border-navy-700/50 flex items-center justify-between text-[11px] text-slate-400">
-              <span className="group-hover:text-slate-200 transition-colors">
-                {isSelected ? 'Sedang difilter' : 'Klik untuk filter'}
+            <div className="mt-3 flex items-center justify-between gap-2 text-[11px]">
+              <span className="text-slate-500 truncate">{c.note}</span>
+              <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-wider text-slate-600 truncate">
+                {isSelected ? 'Aktif' : c.code}
               </span>
-              <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400" />
             </div>
           </button>
         );

@@ -76,7 +76,7 @@ export function OrderDetailModal({
 
   const statusMeta = STATUS_CONFIG[status] || {
     label: status,
-    badgeClass: 'bg-navy-800 text-slate-300 border border-navy-700',
+    badgeClass: 'bg-ink-800 text-slate-300 border border-ink-700',
     dotClass: 'bg-slate-400',
   };
 
@@ -97,7 +97,7 @@ export function OrderDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/80 backdrop-blur-sm animate-fade-in overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm animate-fade-in overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isActionLoading) {
           onClose();
@@ -107,9 +107,9 @@ export function OrderDetailModal({
       aria-modal="true"
       aria-labelledby="order-detail-title"
     >
-      <div className="w-full max-w-2xl bg-navy-900 border border-navy-700 rounded-2xl shadow-2xl overflow-hidden my-8">
+      <div className="w-full max-w-2xl bg-ink-900 border border-ink-700 rounded-xl shadow-2xl overflow-hidden my-8">
         {/* Header */}
-        <div className="p-6 border-b border-navy-700 bg-navy-850/50 flex items-center justify-between">
+        <div className="p-6 border-b border-ink-700 bg-ink-850/50 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
               <h2
@@ -120,8 +120,8 @@ export function OrderDetailModal({
               </h2>
 
               {/* Order ID with Copy Button */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-navy-800 border border-navy-700">
-                <span className="font-mono text-xs font-semibold text-blue-400">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-ink-800 border border-ink-700">
+                <span className="font-mono text-xs font-semibold text-accent-400">
                   #{orderId}
                 </span>
                 <button
@@ -129,7 +129,7 @@ export function OrderDetailModal({
                   onClick={handleCopyOrderId}
                   aria-label="Salin ID Pesanan"
                   title="Salin ID Pesanan"
-                  className="text-slate-400 hover:text-white p-0.5 rounded transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="text-slate-400 hover:text-white p-0.5 rounded transition-colors focus:outline-none focus:ring-1 focus:ring-accent-500"
                 >
                   {copied ? (
                     <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-medium">
@@ -153,7 +153,7 @@ export function OrderDetailModal({
             onClick={onClose}
             disabled={isActionLoading}
             aria-label="Tutup modal"
-            className="text-slate-400 hover:text-slate-200 p-2 rounded-xl bg-navy-800/80 hover:bg-navy-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-slate-400 hover:text-slate-200 p-2 rounded-lg bg-ink-800/80 hover:bg-ink-800 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
             <X className="w-5 h-5" />
           </button>
@@ -162,7 +162,7 @@ export function OrderDetailModal({
         {/* Content Body */}
         <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
           {/* Status Alert Banner */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-navy-850/60 border border-navy-700/80">
+          <div className="flex items-center justify-between p-4 rounded-lg bg-ink-850/60 border border-ink-700/80">
             <div>
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
                 Status Pesanan
@@ -181,8 +181,8 @@ export function OrderDetailModal({
           </div>
 
           {/* Section 1: Pelanggan */}
-          <div className="p-4 rounded-xl bg-navy-850/40 border border-navy-700/80 space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-400 flex items-center gap-2">
+          <div className="p-4 rounded-lg bg-ink-850/40 border border-ink-700/80 space-y-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-accent-400 flex items-center gap-2">
               <User className="w-4 h-4" />
               Pelanggan
             </h3>
@@ -219,8 +219,8 @@ export function OrderDetailModal({
           </div>
 
           {/* Section 2: Produk */}
-          <div className="p-4 rounded-xl bg-navy-850/40 border border-navy-700/80 space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-400 flex items-center gap-2">
+          <div className="p-4 rounded-lg bg-ink-850/40 border border-ink-700/80 space-y-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-accent-400 flex items-center gap-2">
               <Package className="w-4 h-4" />
               Produk
             </h3>
@@ -234,7 +234,7 @@ export function OrderDetailModal({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-2.5 rounded-lg bg-navy-900 border border-navy-750">
+                <div className="p-2.5 rounded-lg bg-ink-900 border border-ink-750">
                   <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
                     <KeyRound className="w-3.5 h-3.5 text-slate-400" />
                     Lisensi
@@ -244,7 +244,7 @@ export function OrderDetailModal({
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-navy-900 border border-navy-750">
+                <div className="p-2.5 rounded-lg bg-ink-900 border border-ink-750">
                   <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
                     <Cpu className="w-3.5 h-3.5 text-slate-400" />
                     Kompatibilitas
@@ -258,8 +258,8 @@ export function OrderDetailModal({
           </div>
 
           {/* Section 3: Pembayaran */}
-          <div className="p-4 rounded-xl bg-navy-850/40 border border-navy-700/80 space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-400 flex items-center gap-2">
+          <div className="p-4 rounded-lg bg-ink-850/40 border border-ink-700/80 space-y-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-accent-400 flex items-center gap-2">
               <CreditCard className="w-4 h-4" />
               Pembayaran
             </h3>
@@ -267,7 +267,7 @@ export function OrderDetailModal({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
               <div>
                 <p className="text-xs text-slate-400">Total Nominal</p>
-                <p className="text-base font-bold font-mono text-blue-400 mt-0.5">
+                <p className="text-base font-bold font-mono text-accent-400 mt-0.5">
                   {formatCurrency(totalAmount)}
                 </p>
               </div>
@@ -289,8 +289,8 @@ export function OrderDetailModal({
           </div>
 
           {/* Section 4: Timeline */}
-          <div className="p-4 rounded-xl bg-navy-850/40 border border-navy-700/80 space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-blue-400 flex items-center gap-2">
+          <div className="p-4 rounded-lg bg-ink-850/40 border border-ink-700/80 space-y-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-accent-400 flex items-center gap-2">
               <Clock className="w-4 h-4" />
               Timeline
             </h3>
@@ -318,12 +318,12 @@ export function OrderDetailModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-6 border-t border-navy-700 bg-navy-850/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-6 border-t border-ink-700 bg-ink-850/60 flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             type="button"
             onClick={onClose}
             disabled={isActionLoading}
-            className="w-full sm:w-auto px-4 py-2 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-auto px-4 py-2 text-xs font-medium text-slate-300 hover:text-white bg-ink-800 hover:bg-ink-750 border border-ink-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
           >
             Tutup
           </button>
@@ -335,7 +335,7 @@ export function OrderDetailModal({
                 type="button"
                 onClick={() => onOpenCancelConfirm(order)}
                 disabled={isActionLoading}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50"
               >
                 <XCircle className="w-4 h-4" />
                 <span>Batalkan Pesanan</span>
@@ -346,7 +346,7 @@ export function OrderDetailModal({
                 type="button"
                 onClick={() => onOpenCompleteConfirm(order)}
                 disabled={isActionLoading}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-md shadow-blue-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-ink-950 font-bold bg-accent-500 hover:bg-accent-400 rounded-lg shadow-md shadow-accent-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-accent-500 disabled:opacity-50"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Selesaikan Pesanan</span>

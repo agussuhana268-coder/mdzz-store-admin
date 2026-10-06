@@ -41,7 +41,7 @@ describe('App Integration', () => {
   it('renders login screen when unauthenticated', () => {
     render(<App />);
 
-    expect(screen.getByText('MDZZ Store')).toBeInTheDocument();
+    expect(screen.getByText('Mdzz Store')).toBeInTheDocument();
     expect(screen.getByText('Admin Dashboard')).toBeInTheDocument();
     expect(
       screen.getByText('Login untuk mengelola pesanan toko.')

@@ -52,9 +52,10 @@ export default function App() {
     if (success) {
       addToast({
         type: 'success',
-        message: 'Login berhasil. Selamat datang di Admin Dashboard MDZZ Store.',
+        message: 'Login berhasil. Selamat datang di Admin Dashboard Mdzz Store.',
       });
     }
+    return success;
   };
 
   // Orders management hook
@@ -173,7 +174,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-slate-100 flex flex-col md:flex-row font-sans">
+    <div className="min-h-[100dvh] bg-ink-950 text-slate-100 flex flex-col md:flex-row font-sans">
       {/* 1. Left Sidebar (Fixed on Desktop, Drawer on Mobile) */}
       <Sidebar
         activeTab={activeTab}
@@ -190,7 +191,7 @@ export default function App() {
         {/* Top Header */}
         <Header
           title={activeTab === 'overview' ? 'Overview' : 'Pesanan'}
-          description="Kelola dan verifikasi pesanan pelanggan MDZZ Store"
+          description="Kelola dan verifikasi pesanan pelanggan Mdzz Store"
           isConnected={Boolean(token)}
           isRefreshing={isRefreshing}
           onRefresh={refresh}
@@ -198,7 +199,7 @@ export default function App() {
         />
 
         {/* Content Body with Generous Spacing */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-5 sm:space-y-6 safe-bottom">
           {/* Section: Summary Metric Cards */}
           <section aria-label="Ringkasan Pesanan">
             <SummaryCards
@@ -214,10 +215,10 @@ export default function App() {
           {/* Section: Orders Management */}
           <section
             aria-label="Daftar Pesanan"
-            className="bg-navy-900 border border-navy-700 rounded-2xl overflow-hidden shadow-xl shadow-navy-950/50"
+            className="bg-ink-900 border border-ink-700 rounded-xl overflow-hidden "
           >
             {/* Header & Controls Toolbar */}
-            <div className="p-4 sm:p-6 border-b border-navy-700/80 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="p-4 sm:p-6 border-b border-ink-700/80 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div>
                 <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
                   <span>Pesanan</span>
@@ -234,7 +235,7 @@ export default function App() {
               {/* Filter Buttons & Search Input */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 {/* Search Bar */}
-                <div className="relative min-w-[200px] sm:min-w-[240px]">
+                <div className="relative w-full sm:w-auto sm:min-w-[260px]">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                     <Search className="w-3.5 h-3.5" />
                   </div>
@@ -243,7 +244,7 @@ export default function App() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Cari ID, pembeli, kontak..."
-                    className="w-full pl-9 pr-8 py-1.5 text-xs bg-navy-950/70 border border-navy-700 hover:border-navy-600 focus:border-blue-500 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                    className="w-full pl-9 pr-8 h-10 sm:h-9 text-base sm:text-xs bg-ink-950 border border-ink-700 hover:border-ink-600 focus:border-accent-500 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-accent-500 transition-colors"
                   />
                   {searchQuery && (
                     <button
@@ -268,12 +269,12 @@ export default function App() {
                         key={opt.value}
                         type="button"
                         onClick={() => setFilter(opt.value)}
-                        className={`px-3 py-1.5 text-xs font-medium rounded-xl whitespace-nowrap transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`px-3.5 h-10 sm:h-9 text-xs font-medium rounded-lg whitespace-nowrap transition-all focus:outline-none focus:ring-2 focus:ring-accent-500 ${
                           isActive
                             ? isWaiting
                               ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-semibold'
-                              : 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-semibold border border-blue-500'
-                            : 'bg-navy-800 text-slate-400 hover:text-slate-200 hover:bg-navy-750 border border-navy-700'
+                              : 'bg-accent-500 text-ink-950 font-bold border border-accent-500'
+                            : 'bg-ink-800 text-slate-400 hover:text-slate-200 hover:bg-ink-750 border border-ink-700'
                         }`}
                       >
                         {opt.label}
@@ -286,7 +287,7 @@ export default function App() {
 
             {/* Error Message Notice */}
             {error && (
-              <div className="m-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 flex items-center justify-between gap-3 text-xs">
+              <div className="m-6 p-4 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 flex items-center justify-between gap-3 text-xs">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
                   <span>{error}</span>
@@ -308,7 +309,7 @@ export default function App() {
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-navy-700/80 bg-navy-950/50 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                      <tr className="border-b border-ink-700/80 bg-ink-950/50 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                         <th className="py-3 px-4">Order</th>
                         <th className="py-3 px-4">Pelanggan</th>
                         <th className="py-3 px-4">Produk</th>
@@ -332,7 +333,7 @@ export default function App() {
             ) : displayedOrders.length === 0 ? (
               /* Refined Empty State */
               <div className="py-16 px-4 flex flex-col items-center justify-center text-center">
-                <div className="w-14 h-14 rounded-2xl bg-navy-800/80 border border-navy-700 flex items-center justify-center text-slate-400 mb-3 shadow-inner">
+                <div className="w-14 h-14 rounded-xl bg-ink-800/80 border border-ink-700 flex items-center justify-center text-slate-400 mb-3 shadow-inner">
                   <ShoppingBag className="w-6 h-6" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-200">
@@ -349,7 +350,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="mt-3 px-3 py-1.5 text-xs font-medium text-blue-400 bg-navy-800 hover:bg-navy-750 border border-navy-700 rounded-xl transition-colors"
+                    className="mt-3 px-3 py-1.5 text-xs font-medium text-accent-400 bg-ink-800 hover:bg-ink-750 border border-ink-700 rounded-lg transition-colors"
                   >
                     Reset Pencarian
                   </button>
@@ -357,7 +358,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={refresh}
-                    className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 rounded-xl transition-colors"
+                    className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-ink-800 hover:bg-ink-750 border border-ink-700 rounded-lg transition-colors"
                   >
                     <RefreshCw className="w-3 h-3" />
                     <span>Refresh Data</span>
@@ -370,7 +371,7 @@ export default function App() {
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-navy-700/80 bg-navy-950/40 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                      <tr className="border-b border-ink-700/80 bg-ink-950/40 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                         <th className="py-3 px-4">Order</th>
                         <th className="py-3 px-4">Pelanggan</th>
                         <th className="py-3 px-4">Produk</th>
@@ -380,7 +381,7 @@ export default function App() {
                         <th className="py-3 px-4 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-navy-750/50">
+                    <tbody className="divide-y divide-ink-750/50">
                       {displayedOrders.map((order) => {
                         const id = order.id || order.orderId;
                         return (

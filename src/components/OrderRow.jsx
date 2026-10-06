@@ -43,7 +43,7 @@ export function OrderTableRow({
 
   const statusMeta = STATUS_CONFIG[status] || {
     label: status,
-    badgeClass: 'bg-navy-800 text-slate-300 border border-navy-700',
+    badgeClass: 'bg-ink-800 text-slate-300 border border-ink-700',
     dotClass: 'bg-slate-400',
   };
 
@@ -52,7 +52,7 @@ export function OrderTableRow({
 
   return (
     <tr
-      className={`border-b border-navy-700/60 transition-colors hover:bg-navy-850/60 group ${
+      className={`border-b border-ink-700/60 transition-colors hover:bg-ink-850/60 group ${
         isWaiting ? 'bg-amber-500/[0.03]' : ''
       }`}
     >
@@ -62,7 +62,7 @@ export function OrderTableRow({
           type="button"
           onClick={() => onSelect(order)}
           title="Klik untuk detail pesanan"
-          className="font-mono text-xs font-semibold text-blue-400 hover:text-blue-300 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded py-0.5 px-1 bg-navy-800/60 border border-navy-700/80 inline-flex items-center gap-1 transition-colors"
+          className="font-mono text-xs font-semibold text-accent-400 hover:text-accent-300 hover:underline focus:outline-none focus:ring-1 focus:ring-accent-500 rounded py-0.5 px-1 bg-ink-800/60 border border-ink-700/80 inline-flex items-center gap-1 transition-colors"
         >
           <span>#{orderId}</span>
         </button>
@@ -99,12 +99,12 @@ export function OrderTableRow({
           </div>
           <div className="flex items-center gap-1.5 mt-0.5">
             {productInfo.license !== '-' && (
-              <span className="inline-block text-[10px] font-medium text-slate-400 bg-navy-800 px-1.5 py-0.5 rounded border border-navy-700">
+              <span className="inline-block text-[10px] font-medium text-slate-400 bg-ink-800 px-1.5 py-0.5 rounded border border-ink-700">
                 {productInfo.license}
               </span>
             )}
             {productInfo.compatibility !== '-' && (
-              <span className="inline-block text-[10px] font-medium text-slate-400 bg-navy-800 px-1.5 py-0.5 rounded border border-navy-700">
+              <span className="inline-block text-[10px] font-medium text-slate-400 bg-ink-800 px-1.5 py-0.5 rounded border border-ink-700">
                 {productInfo.compatibility}
               </span>
             )}
@@ -148,7 +148,7 @@ export function OrderTableRow({
                 onClick={() => onOpenCompleteConfirm(order)}
                 disabled={isActionLoading}
                 title="Selesaikan Pesanan"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm shadow-blue-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-ink-950 font-bold bg-accent-500 hover:bg-accent-400 rounded-lg shadow-sm shadow-accent-600/30 transition-all focus:outline-none focus:ring-2 focus:ring-accent-500 disabled:opacity-50"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Selesaikan</span>
@@ -171,7 +171,7 @@ export function OrderTableRow({
               type="button"
               onClick={() => onSelect(order)}
               title="Lihat Detail Pesanan"
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 hover:border-navy-600 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-ink-800 hover:bg-ink-750 border border-ink-700 hover:border-ink-600 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
             >
               <Eye className="w-3.5 h-3.5 text-slate-400" />
               <span>Detail</span>
@@ -211,7 +211,7 @@ export function OrderMobileCard({
 
   const statusMeta = STATUS_CONFIG[status] || {
     label: status,
-    badgeClass: 'bg-navy-800 text-slate-300 border border-navy-700',
+    badgeClass: 'bg-ink-800 text-slate-300 border border-ink-700',
     dotClass: 'bg-slate-400',
   };
 
@@ -220,18 +220,18 @@ export function OrderMobileCard({
 
   return (
     <div
-      className={`p-4 rounded-2xl border transition-all duration-200 ${
+      className={`p-4 rounded-xl border transition-all duration-200 ${
         isWaiting
-          ? 'bg-navy-900 border-amber-500/40 shadow-sm shadow-amber-500/5'
-          : 'bg-navy-900/90 border-navy-700/80 hover:border-navy-600'
+          ? 'bg-ink-900 border-amber-500/40 shadow-sm shadow-amber-500/5'
+          : 'bg-ink-900/90 border-ink-700/80 hover:border-ink-600'
       }`}
     >
       {/* Top: Order ID + Status */}
-      <div className="flex items-center justify-between gap-2 pb-3 border-b border-navy-700/70">
+      <div className="flex items-center justify-between gap-2 pb-3 border-b border-ink-700/70">
         <button
           type="button"
           onClick={() => onSelect(order)}
-          className="font-mono text-xs font-semibold text-blue-400 hover:text-blue-300 px-2 py-0.5 rounded bg-navy-800 border border-navy-700 inline-flex items-center gap-1"
+          className="font-mono text-xs font-semibold text-accent-400 hover:text-accent-300 px-2 py-0.5 rounded bg-ink-800 border border-ink-700 inline-flex items-center gap-1"
         >
           <span>#{orderId}</span>
         </button>
@@ -280,7 +280,7 @@ export function OrderMobileCard({
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate-400 pt-1 border-t border-navy-800/80">
+        <div className="flex items-center justify-between text-xs text-slate-400 pt-1 border-t border-ink-800/80">
           <span className="flex items-center gap-1">
             <CreditCard className="w-3.5 h-3.5 text-slate-500" />
             {paymentMethod}
@@ -293,11 +293,11 @@ export function OrderMobileCard({
       </div>
 
       {/* Footer: Actions */}
-      <div className="pt-3 border-t border-navy-700/70 flex items-center justify-end gap-2">
+      <div className="pt-3 border-t border-ink-700/70 flex items-center justify-end gap-2">
         <button
           type="button"
           onClick={() => onSelect(order)}
-          className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-navy-800 hover:bg-navy-750 border border-navy-700 rounded-xl transition-colors"
+          className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-ink-800 hover:bg-ink-750 border border-ink-700 rounded-lg transition-colors"
         >
           Detail
         </button>
@@ -308,7 +308,7 @@ export function OrderMobileCard({
               type="button"
               onClick={() => onOpenCancelConfirm(order)}
               disabled={isActionLoading}
-              className="px-3 py-1.5 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl transition-colors disabled:opacity-50"
+              className="px-3 py-1.5 text-xs font-medium text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-lg transition-colors disabled:opacity-50"
             >
               Batalkan
             </button>
@@ -317,7 +317,7 @@ export function OrderMobileCard({
               type="button"
               onClick={() => onOpenCompleteConfirm(order)}
               disabled={isActionLoading}
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-sm shadow-blue-600/30 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-ink-950 font-bold bg-accent-500 hover:bg-accent-400 rounded-lg shadow-sm shadow-accent-600/30 transition-colors disabled:opacity-50"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Selesaikan</span>

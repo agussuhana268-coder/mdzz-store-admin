@@ -141,6 +141,6 @@ export function getWhatsAppUrl(phone, orderId) {
   if (formatted.startsWith('0')) {
     formatted = '62' + formatted.slice(1);
   }
-  const message = encodeURIComponent(`Halo, terkait pesanan #${orderId || ''} di MDZZ Store:`);
+  const message = encodeURIComponent(`Halo, terkait pesanan #${orderId || ''} di Mdzz Store:`);
   return `https://wa.me/${formatted}?text=${message}`;
 }
